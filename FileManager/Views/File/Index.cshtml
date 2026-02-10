@@ -1,0 +1,64 @@
+﻿@model FileManager.Models.ScanResult
+
+@{
+    ViewData["Title"] = "File Scanner";
+}
+
+ 
+<div class="container my-4">
+
+    <h1 class="mb-4">File Scanner</h1>
+
+    <!-- Form -->
+    <form asp-action="Scan" method="post" class="mb-4">
+        <div class="mb-3">
+            <label for="directoryPath" class="form-label">Enter the directory path:</label>
+            <input type="text" name="directoryPath" id="directoryPath" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Launch scan</button>
+    </form>
+
+    @if (Model != null)
+    {
+        <h2 class="mb-3">Results:</h2>
+
+        <!-- New files -->
+        <div class="card mb-3 border-success">
+            <div class="card-header bg-success text-white">
+                New files
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var f in Model.NewFiles)
+                {
+                    <li class="list-group-item">@f</li>
+                }
+            </ul>
+        </div>
+
+        <!-- Changed files -->
+        <div class="card mb-3 border-warning">
+            <div class="card-header bg-warning text-dark">
+                Changed files
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var f in Model.ChangedFiles)
+                {
+                    <li class="list-group-item">@f</li>
+                }
+            </ul>
+        </div>
+
+        <!-- Removed files -->
+        <div class="card mb-3 border-danger">
+            <div class="card-header bg-danger text-white">
+                Removed files
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var f in Model.RemovedFiles)
+                {
+                    <li class="list-group-item">@f</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
